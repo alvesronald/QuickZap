@@ -1,6 +1,11 @@
 import React from 'react';
 import { render, screen, userEvent } from '@testing-library/react-native';
 import App from '../App';
+import i18n from '../src/i18n';
+
+beforeEach(async () => {
+  await i18n.changeLanguage('en');
+});
 
 test('renders App and navigates between screens', async () => {
   const user = userEvent.setup();

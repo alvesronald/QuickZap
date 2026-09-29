@@ -1,30 +1,46 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
 import { ZapIcon } from '../components/ZapIcon';
 import type { RootStackScreenProps } from '../navigation/types';
 
 export function HomeScreen({ navigation }: RootStackScreenProps<'Home'>) {
+  const { t, i18n } = useTranslation();
+
+  const toggleLanguage = () => {
+    const nextLang = i18n.language === 'en' ? 'pt' : 'en';
+    i18n.changeLanguage(nextLang);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.iconContainer}>
         <ZapIcon size={56} color="#eab308" />
       </View>
-      <Text style={styles.title}>QuickZap</Text>
-      <Text style={styles.subtitle}>
-        React Navigation and react-native-svg are configured successfully!
-      </Text>
+      <Text style={styles.title}>{t('home.title')}</Text>
+      <Text style={styles.subtitle}>{t('home.subtitle')}</Text>
 
       <TouchableOpacity
         style={styles.button}
         onPress={() =>
           navigation.navigate('Details', {
             itemId: '42',
-            title: 'QuickZap Details',
+            title: t('details.title'),
           })
         }
         activeOpacity={0.8}
       >
-        <Text style={styles.buttonText}>Go to Details</Text>
+        <Text style={styles.buttonText}>{t('home.goToDetails')}</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.secondaryButton}
+        onPress={toggleLanguage}
+        activeOpacity={0.8}
+      >
+        <Text style={styles.secondaryButtonText}>
+          {t('home.toggleLanguage')}
+        </Text>
       </TouchableOpacity>
     </View>
   );
@@ -64,10 +80,24 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 8,
+    marginBottom: 16,
   },
   buttonText: {
     color: '#ffffff',
     fontSize: 16,
     fontWeight: '600',
+  },
+  secondaryButton: {
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#cbd5e1',
+    backgroundColor: '#ffffff',
+  },
+  secondaryButtonText: {
+    color: '#334155',
+    fontSize: 14,
+    fontWeight: '500',
   },
 });
