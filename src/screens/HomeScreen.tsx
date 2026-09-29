@@ -1,16 +1,11 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { useTranslation } from 'react-i18next';
 import { ZapIcon } from '../components/ZapIcon';
+import { useLanguageToggle } from '../hooks';
 import type { RootStackScreenProps } from '../navigation/types';
 
 export function HomeScreen({ navigation }: RootStackScreenProps<'Home'>) {
-  const { t, i18n } = useTranslation();
-
-  const toggleLanguage = () => {
-    const nextLang = i18n.language === 'en' ? 'pt' : 'en';
-    i18n.changeLanguage(nextLang);
-  };
+  const { t, toggleLanguage } = useLanguageToggle();
 
   return (
     <View style={styles.container}>
