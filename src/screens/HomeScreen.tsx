@@ -1,12 +1,18 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { ZapIcon } from '../components/ZapIcon';
 import type { RootStackScreenProps } from '../navigation/types';
 
 export function HomeScreen({ navigation }: RootStackScreenProps<'Home'>) {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>⚡ QuickZap</Text>
-      <Text style={styles.subtitle}>React Navigation is configured successfully!</Text>
+      <View style={styles.iconContainer}>
+        <ZapIcon size={56} color="#eab308" />
+      </View>
+      <Text style={styles.title}>QuickZap</Text>
+      <Text style={styles.subtitle}>
+        React Navigation and react-native-svg are configured successfully!
+      </Text>
 
       <TouchableOpacity
         style={styles.button}
@@ -32,6 +38,9 @@ const styles = StyleSheet.create({
     padding: 24,
     backgroundColor: '#f8fafc',
   },
+  iconContainer: {
+    marginBottom: 12,
+  },
   title: {
     fontSize: 28,
     fontWeight: '700',
@@ -43,6 +52,7 @@ const styles = StyleSheet.create({
     color: '#64748b',
     textAlign: 'center',
     marginBottom: 32,
+    lineHeight: 22,
   },
   button: {
     backgroundColor: '#2563eb',
