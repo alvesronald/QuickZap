@@ -1,0 +1,18 @@
+# Dependencies
+node_modules/
+vendor/
+
+# Native builds & Pods
+android/
+ios/
+Pods/
+build/
+
+# Generated & temporary
+coverage/
+.bundle/
+.gradle/
+*.log
+
+# Bundles
+*.bundle

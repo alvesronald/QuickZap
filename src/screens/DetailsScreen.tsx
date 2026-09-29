@@ -2,7 +2,10 @@ import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import type { RootStackScreenProps } from '../navigation/types';
 
-export function DetailsScreen({ route, navigation }: RootStackScreenProps<'Details'>) {
+export function DetailsScreen({
+  route,
+  navigation,
+}: RootStackScreenProps<'Details'>) {
   const { itemId, title } = route.params;
 
   return (

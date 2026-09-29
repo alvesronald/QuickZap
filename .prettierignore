@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+vendor/
+
+# Native builds & Pods
+android/
+ios/
+Pods/
+build/
+*.xcworkspace/
+*.xcodeproj/
+
+# Generated & temporary
+coverage/
+.bundle/
+.gradle/
+*.log
+
+# Lock files
+package-lock.json
+yarn.lock
+Gemfile.lock
+Podfile.lock
