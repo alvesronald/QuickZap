@@ -31,7 +31,11 @@
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-[Gates determined based on constitution file]
+- [ ] Reusable components/hooks identified (new vs. reused); screens only compose them
+- [ ] Tests (Jest + React Native Testing Library) planned for 100% coverage
+- [ ] ESLint and Prettier compliance; strict TypeScript, no untyped `any`
+- [ ] Styling via `StyleSheet`, graphics via `react-native-svg`, strings via i18n
+- [ ] New dependencies justified
 
 ## Project Structure
 
