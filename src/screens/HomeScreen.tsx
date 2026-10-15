@@ -1,98 +1,70 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { ZapIcon } from '../components/ZapIcon';
-import { useLanguageToggle } from '../hooks';
-import type { RootStackScreenProps } from '../navigation/types';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { useTranslation } from 'react-i18next';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { LanguageSwitcher, PhoneInputCard, ZapIcon } from '../components';
+import { useTheme, useWhatsAppChat } from '../hooks';
 
-export function HomeScreen({ navigation }: RootStackScreenProps<'Home'>) {
-  const { t, toggleLanguage } = useLanguageToggle();
+export function HomeScreen() {
+  const { t } = useTranslation();
+  const { colors } = useTheme();
+  const insets = useSafeAreaInsets();
+  const chat = useWhatsAppChat();
 
   return (
-    <View style={styles.container}>
-      <View style={styles.iconContainer}>
-        <ZapIcon size={56} color="#eab308" />
+    <ScrollView
+      keyboardShouldPersistTaps="handled"
+      style={{ backgroundColor: colors.background }}
+      contentContainerStyle={[styles.content, { paddingTop: insets.top + 16 }]}
+    >
+      <View style={styles.header}>
+        <View style={styles.brand}>
+          <View style={[styles.logo, { backgroundColor: colors.primary }]}>
+            <ZapIcon size={18} color={colors.onPrimary} />
+          </View>
+          <Text style={[styles.appName, { color: colors.text }]}>
+            {t('home.appName')}
+          </Text>
+        </View>
+        <LanguageSwitcher />
       </View>
-      <Text style={styles.title}>{t('home.title')}</Text>
-      <Text style={styles.subtitle}>{t('home.subtitle')}</Text>
-
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() =>
-          navigation.navigate('Details', {
-            itemId: '42',
-            title: t('details.title'),
-          })
-        }
-        activeOpacity={0.8}
-      >
-        <Text style={styles.buttonText}>{t('home.goToDetails')}</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        style={styles.secondaryButton}
-        onPress={toggleLanguage}
-        activeOpacity={0.8}
-      >
-        <Text style={styles.secondaryButtonText}>
-          {t('home.toggleLanguage')}
-        </Text>
-      </TouchableOpacity>
-    </View>
+      <Text style={[styles.title, { color: colors.text }]}>
+        {t('home.title')}
+      </Text>
+      <Text style={[styles.subtitle, { color: colors.textMuted }]}>
+        {t('home.subtitle')}
+      </Text>
+      <PhoneInputCard
+        country={chat.country}
+        number={chat.number}
+        error={chat.error}
+        isOpening={chat.isOpening}
+        onChangeNumber={chat.setNumber}
+        onSelectCountry={chat.setCountry}
+        onSubmit={chat.submit}
+      />
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
+  content: { flexGrow: 1, paddingHorizontal: 20, paddingBottom: 24 },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 24,
+  },
+  brand: { flexDirection: 'row', alignItems: 'center' },
+  logo: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 24,
-    backgroundColor: '#f8fafc',
+    marginRight: 12,
   },
-  iconContainer: {
-    marginBottom: 12,
-  },
-  title: {
-    fontSize: 28,
-    fontWeight: '700',
-    color: '#0f172a',
-    marginBottom: 8,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#64748b',
-    textAlign: 'center',
-    marginBottom: 32,
-    lineHeight: 22,
-  },
-  button: {
-    backgroundColor: '#2563eb',
-    paddingVertical: 14,
-    paddingHorizontal: 28,
-    borderRadius: 10,
-    elevation: 2,
-    shadowColor: '#2563eb',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 8,
-    marginBottom: 16,
-  },
-  buttonText: {
-    color: '#ffffff',
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  secondaryButton: {
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#cbd5e1',
-    backgroundColor: '#ffffff',
-  },
-  secondaryButtonText: {
-    color: '#334155',
-    fontSize: 14,
-    fontWeight: '500',
-  },
+  appName: { fontSize: 18, fontWeight: '700' },
+  title: { fontSize: 28, fontWeight: '800', marginBottom: 8 },
+  subtitle: { fontSize: 14, lineHeight: 20, marginBottom: 24 },
 });

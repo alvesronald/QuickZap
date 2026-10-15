@@ -6,7 +6,7 @@
 - **Alternatives**: `canOpenURL` pre-check (needs native config, unreliable); only `wa.me` (extra browser hop on some devices).
 
 ## R2 — Number normalization & validation
-- **Decision**: strip all non-digits; if the raw input starts with `+`, treat it as already international; otherwise strip leading zeros (trunk prefix) and, if the digits already start with the selected dial code and the total would exceed 15, avoid duplication by treating them as international. Valid when final digits are 8–15 long (FR-004).
+- **Decision**: strip all non-digits; if the raw input starts with `+`, treat it as already international; otherwise strip leading zeros (trunk prefix) and, if the digits start with the selected dial code and at least 10 digits follow it, treat them as already international (avoids duplicating the code while keeping area codes that equal the dial code). Valid when final digits are 8–15 long (FR-004).
 - **Rationale**: covers the spec edge cases with pure, easily 100%-tested functions.
 - **Alternatives**: `libphonenumber-js` (heavy; per-country validity is beyond FR-004).
 

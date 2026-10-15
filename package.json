@@ -14,9 +14,11 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@react-native-async-storage/async-storage": "^3.1.1",
     "@react-native/new-app-screen": "0.87.1",
     "@react-navigation/native": "^7.5.0",
     "@react-navigation/native-stack": "^7.20.0",
+    "country-flag-icons": "^1.6.20",
     "i18next": "^26.4.2",
     "react": "19.2.3",
     "react-i18next": "^17.0.15",

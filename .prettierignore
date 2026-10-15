@@ -21,3 +21,10 @@ package-lock.json
 yarn.lock
 Gemfile.lock
 Podfile.lock
+
+# spec-kit tooling and feature docs
+.specify/
+.claude/
+.agent/
+specs/
+CLAUDE.md

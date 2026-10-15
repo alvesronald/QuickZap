@@ -1,6 +1,7 @@
 import { act, renderHook } from '@testing-library/react-native';
 import { useLanguageToggle } from '../src/hooks/useLanguageToggle';
 import i18n from '../src/i18n';
+import { loadLanguage } from '../src/i18n/languageStorage';
 
 describe('useLanguageToggle', () => {
   beforeEach(async () => {
@@ -49,5 +50,15 @@ describe('useLanguageToggle', () => {
     });
 
     expect(result.current.currentLanguage).toBe('en');
+  });
+
+  it('persists the chosen language', async () => {
+    const { result } = await renderHook(() => useLanguageToggle());
+
+    await act(async () => {
+      await result.current.changeLanguage('pt');
+    });
+
+    expect(await loadLanguage()).toBe('pt');
   });
 });
