@@ -77,9 +77,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace "com.quickzap"
+    namespace "br.com.rony.quickzap"
     defaultConfig {
-        applicationId "com.quickzap"
+        applicationId "br.com.rony.quickzap"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

@@ -1,4 +1,4 @@
-package com.quickzap
+package br.com.rony.quickzap
 
 import android.os.Bundle
 import com.facebook.react.ReactActivity
