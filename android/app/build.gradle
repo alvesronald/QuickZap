@@ -94,9 +94,9 @@ android {
         }
         release {
             storeFile file('my-upload-key.keystore')
-            storePassword System.getenv('QUICKZAP_STORE_PASSWORD')
-            keyAlias System.getenv('QUICKZAP_KEY_ALIAS')
-            keyPassword System.getenv('QUICKZAP_KEY_PASSWORD')
+            storePassword System.getenv('QUICKZAP_STORE_PASSWORD')?.trim()
+            keyAlias (System.getenv('QUICKZAP_KEY_ALIAS') == 'my-upload-key' || !System.getenv('QUICKZAP_KEY_ALIAS') ? 'my-key-alias' : System.getenv('QUICKZAP_KEY_ALIAS'))?.trim()
+            keyPassword (System.getenv('QUICKZAP_KEY_PASSWORD') ?: System.getenv('QUICKZAP_STORE_PASSWORD'))?.trim()
         }
     }
     buildTypes {
