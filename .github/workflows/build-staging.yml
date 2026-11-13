@@ -41,7 +41,8 @@ jobs:
           KEYSTORE_BASE64: ${{ secrets.ANDROID_UPLOAD_KEY_BASE64 }}
           STORE_PASS: ${{ secrets.ANDROID_QUICKZAP_STORE_PASSWORD }}
         run: |
-          echo "$KEYSTORE_BASE64" | base64 -d > app/my-upload-key.keystore
+          printf '%s' "$KEYSTORE_BASE64" | tr -d '\r\n ' | base64 -d > app/my-upload-key.keystore
+          ls -l app/my-upload-key.keystore
           echo "Verifying keystore:"
           keytool -list -keystore app/my-upload-key.keystore -storepass "$STORE_PASS"
 
