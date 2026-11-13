@@ -1,5 +1,8 @@
 name: Build Staging (Android)
 
+env:
+  APK_OUTPUT_PATH: android/app/build/outputs/apk/release/app-release.apk
+
 on:
   workflow_dispatch:
 
@@ -28,8 +31,22 @@ jobs:
       - name: Install Packages
         run: yarn install
 
+      - name: Decode Keystore
+        run: echo ${{ secrets.ANDROID_UPLOAD_KEY_BASE64 }} | base64 -d > my-upload-key.keystore
+
       - name: Make gradlew executable
         run: chmod +x ./gradlew
 
       - name: Build Android App
         run: ./gradlew assembleRelease
+        env:
+          QUICKZAP_STORE_PASSWORD: ${{ secrets.ANDROID_QUICKZAP_STORE_PASSWORD }}
+          QUICKZAP_KEY_ALIAS: ${{ secrets.ANDROID_QUICKZAP_KEY_ALIAS }}
+          QUICKZAP_KEY_PASSWORD: ${{ secrets.ANDROID_QUICKZAP_KEY_PASSWORD }}
+
+      - name: Upload APK to Artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: app-release.apk
+          path: ${{ env.APK_OUTPUT_PATH }}
+          retention-days: 7
